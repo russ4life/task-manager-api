@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node source/index.js",
-    "dev": "env-cmd -f ./config/dev.env nodemon source/index.js"
+    "dev": "env-cmd -f ./config/dev.env nodemon source/index.js",
+    "test": "env-cmd -f ./config/test.env jest --watch --runInBand --config ./tests/jest.config.js"
   },
   "license": "MIT",
   "dependencies": {
@@ -20,6 +21,8 @@
   },
   "devDependencies": {
     "env-cmd": "^9.0.3",
-    "nodemon": "^1.19.1"
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   }
 }
