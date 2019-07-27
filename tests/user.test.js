@@ -112,3 +112,88 @@ test('Should NOT update invalid user fields', async () => {
         })
         .expect(400)
 })
+
+//
+// User Test Ideas
+//
+
+test('Should not signup user with invalid name', async () => {
+    await request(app)
+        .post('/users')
+        .send({
+            name: '',
+            email: 'russell@example.com',
+            password: 'MyPass777!'
+        })
+        .expect(400)
+})
+
+test('Should not signup user with invalid email', async () => {
+    await request(app)
+        .post('/users')
+        .send({
+            name: 'Russell',
+            email: '',
+            password: 'MyPass777!'
+        })
+        .expect(400)
+})
+
+test('Should not signup user with invalid password', async () => {
+    await request(app)
+        .post('/users')
+        .send({
+            name: 'Russell',
+            email: 'russell@example.com',
+            password: 'password'
+        })
+        .expect(400)
+})
+
+test('Should not update user if unauthenticated', async () => {
+    await request(app)
+        .patch('/users')
+        .send({
+            name: 'Russell',
+            email: 'russell@example.com',
+            password: 'password'
+        })
+        .expect(404)
+})
+
+test('Should not update user with invalid name', async () => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+        .send({
+            name: ''
+        })
+        .expect(400)
+})
+
+test('Should not update user with invalid email', async () => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+        .send({
+            email: ''
+        })
+        .expect(400)
+})
+
+test('Should not update user with invalid password', async () => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+        .send({
+            password: 'password'
+        })
+        .expect(400)
+})
+
+test('Should not delete user if unauthenticated', async () => {
+    await request(app)
+        .delete('/users/me')
+        .send()
+        .expect(401)
+})
