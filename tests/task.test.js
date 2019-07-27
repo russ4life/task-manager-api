@@ -203,6 +203,6 @@ test('Should fetch page of tasks', async () => {
     const response = await request(app)
         .get("/tasks")
         .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
-        .expect(200);
-    expect(response.body).toEqual(expect.any(Array));
+        .expect(200)
+    expect(response.body).toEqual(expect.any(Array))
 })
